@@ -1,2 +1,2 @@
-mod
-graphics_enhancement
+60fps
+fmodcs

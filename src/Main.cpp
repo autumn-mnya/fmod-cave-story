@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <string>
+#include <fmod_studio.hpp>
+#include <fmod.hpp>
 
 
 #include "mod_loader.h"
