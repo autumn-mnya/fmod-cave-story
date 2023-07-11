@@ -43,6 +43,7 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 	if (strncmp(where + 1, "PEV", 3) == 0)
 	{
 		gTS->p_read += 4;
+		FmodMusicInstance->release();
 		GetTextScriptString(eventName);
 		PlayAudio(eventName);
 	}
@@ -52,7 +53,9 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 		// I should set eventName to 0 or something ..
 		// Would help with saving/loading a profile I would assume?
 		FmodMusicInstance->release();
+
 		FmodMusicInstance->stop(FMOD_STUDIO_STOP_IMMEDIATE);
+		FmodEventBus->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE);
 	}
 	else
 		return 0;

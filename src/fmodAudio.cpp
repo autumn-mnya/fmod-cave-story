@@ -54,7 +54,6 @@ void fmod_Init()
 		exit(-1);
 	}
 
-	// The Studio project is authored for Stereo sound, so set up the system output mode to match
 	coreSystem = NULL;
 	FmodStudioObj->getCoreSystem(&coreSystem);
 	coreSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0);
@@ -92,15 +91,15 @@ void PlayAudio(const char* audiofile)
 {
 	// Load audio
 	FMOD::Studio::EventDescription* eventDescription = NULL;
-	ERRCHECK(FmodStudioObj->getEvent(audiofile, &eventDescription));
+	FmodStudioObj->getEvent(audiofile, &eventDescription);
 
 	// Create audio
 	FmodMusicInstance = NULL;
-	ERRCHECK(eventDescription->createInstance(&FmodMusicInstance));
+	eventDescription->createInstance(&FmodMusicInstance);
 
 	// Start audio
-	ERRCHECK(FmodMusicInstance->start());
+	FmodMusicInstance->start();
 
 	// Release when finished(?)
-	ERRCHECK(FmodMusicInstance->release());
+	FmodMusicInstance->release();
 }

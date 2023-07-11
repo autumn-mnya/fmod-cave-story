@@ -29,5 +29,9 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 #0302
 <SEV<END
 
+#0303
+<PEVevent:/Doukutsu/DemonDragon$<END
+
+
 #1000
 <END

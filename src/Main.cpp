@@ -36,21 +36,6 @@ void GetGamePath()
 	strcat(gAudioPath, "\\audio\\Desktop");
 }
 
-// test
-void Replacement_InactiveWindow(void)
-{
-	FmodMusicInstance->setPaused(true);
-
-	if (bActive)
-	{
-		bActive = FALSE;
-		StopOrganyaMusic();
-		SleepNoise();
-	}
-
-	PlaySoundObject(7, SOUND_MODE_STOP);
-}
-
 // 0x412BD6
 void Replacement_InactiveWindow_StopOrganya_Call()
 {
