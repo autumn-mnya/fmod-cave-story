@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{11205756-679f-43f1-b0cb-0a2c03d9f8dc}">
+		<property name="assetPath">
+			<value>10.10 Dragonified Demon King, Demon Dragon Battle.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>415.72800000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{841b05f0-9bdc-4396-bbf5-fee32a5e02b4}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -57,7 +57,8 @@ void fmod_Init()
 	void* extraDriverData = NULL;
 	Common_Init(&extraDriverData);
 
-	result = FMOD::Studio::System::create(&FmodStudioObj); // Create the Studio System object.
+	FmodStudioObj = NULL;
+	result = FmodStudioObj->create(&FmodStudioObj); // Create the Studio System object.
 
 	if (result != FMOD_OK)
 	{
@@ -87,6 +88,7 @@ void fmod_Init()
 
 void fmod_LoadBanks()
 {
+	// Load bank files
 	char path_MasterBank[MAX_PATH];
 	char path_StringsBank[MAX_PATH];
 	sprintf(path_MasterBank, "%s\\%s", gAudioPath, gBankName);
@@ -98,11 +100,11 @@ void fmod_LoadBanks()
 	printf("FMOD Banks Loaded");
 }
 
-void Replacement_ModeOpening_ActNpChar_Call()
+void PlayAudio(const char* audiofile)
 {
 	// Load audio
 	FMOD::Studio::EventDescription* eventDescription = NULL;
-	FmodStudioObj->getEvent("event:/Doukutsu/GoldenHour", &eventDescription);
+	FmodStudioObj->getEvent(audiofile, &eventDescription);
 
 	// Create audio
 	FMOD::Studio::EventInstance* eventInstance = NULL;
@@ -113,6 +115,11 @@ void Replacement_ModeOpening_ActNpChar_Call()
 
 	// Release when finished(?)
 	eventInstance->release();
+}
+
+void Replacement_ModeOpening_ActNpChar_Call()
+{
+	PlayAudio("event:/Doukutsu/GoldenHour");
 
 	// Update audio
 	FmodStudioObj->update();
