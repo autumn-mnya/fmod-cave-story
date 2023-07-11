@@ -24,5 +24,6 @@ void ExampleFunction(HWND hWnd)
 
 void InitMod(void)
 {
+	
 	ModLoader_WriteJump((void*)0x412320, (void*)ExampleFunction);
 }
