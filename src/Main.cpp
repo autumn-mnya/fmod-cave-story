@@ -47,6 +47,14 @@ FMOD::Studio::EventInstance* FmodEventInstance;
 FMOD::Studio::Bus* FmodEventBus;
 FMOD::System* coreSystem;
 
+void ERRCHECK(FMOD_RESULT result)
+{
+	if (result != FMOD_OK)
+	{
+		printf("FMOD error %d - %s", result, FMOD_ErrorString(result));
+	}
+}
+
 void Common_Init(void** /*extraDriverData*/)
 {
 	CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
@@ -75,7 +83,7 @@ void fmod_Init()
 		printf("FMOD success! (%d) %s\n", result, FMOD_ErrorString(result));
 
 	// Initialize FMOD Studio, which will also initialize FMOD Core
-	result = FmodStudioObj->initialize(1024, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, extraDriverData);
+	result = FmodStudioObj->initialize(1024, FMOD_STUDIO_INIT_SYNCHRONOUS_UPDATE, FMOD_INIT_NORMAL, extraDriverData);
 	if (result != FMOD_OK)
 	{
 		printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
@@ -104,17 +112,17 @@ void PlayAudio(const char* audiofile)
 {
 	// Load audio
 	FMOD::Studio::EventDescription* eventDescription = NULL;
-	FmodStudioObj->getEvent(audiofile, &eventDescription);
+	ERRCHECK(FmodStudioObj->getEvent(audiofile, &eventDescription));
 
 	// Create audio
 	FMOD::Studio::EventInstance* eventInstance = NULL;
-	eventDescription->createInstance(&eventInstance);
+	ERRCHECK(eventDescription->createInstance(&eventInstance));
 
 	// Start audio
-	eventInstance->start();
+	ERRCHECK(eventInstance->start());
 
 	// Release when finished(?)
-	eventInstance->release();
+	ERRCHECK(eventInstance->release());
 }
 
 void Replacement_ModeOpening_ActNpChar_Call()
@@ -139,11 +147,25 @@ void Replacement_ModeAction_ActStar_Call()
 	ActStar();
 }
 
+void ReleaseFmod()
+{
+	FmodBankObj->unload();
+	FmodStringsBankObj->unload();
+	FmodStudioObj->release();
+}
+
+void ReleaseCreditReplacement()
+{
+	ReleaseCreditScript();
+	ReleaseFmod();
+}
+
 void InitReplacements()
 {
 	ModLoader_WriteCall((void*)0x40F809, (void*)Replacement_ModeOpening_ActNpChar_Call);
 	ModLoader_WriteCall((void*)0x40FFDC, (void*)Replacement_ModeTitle_ActCaret_Call);
 	ModLoader_WriteCall((void*)0x410555, (void*)Replacement_ModeAction_ActStar_Call);
+	ModLoader_WriteCall((void*)0x40F6F9, (void*)ReleaseCreditReplacement);
 }
 
 void InitMod(void)
