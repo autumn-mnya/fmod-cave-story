@@ -31,22 +31,11 @@ void GetGamePath()
 
 	// Get path of the audio folder
 	strcpy(gAudioPath, gModulePath);
-	strcat(gAudioPath, "\\audio");
+	strcat(gAudioPath, "\\audio\\Desktop");
 }
-
-static const char* const GameWindowName = "fmodAudio-mod";
 
 const char* gBankName = "Doukutsu.bank";
 const char* gStringsBankName = "Doukutsu.strings.bank";
-
-// Changes the window title to the string above.
-void ExampleFunction(HWND hWnd)
-{
-	char window_name[0x100];
-
-	sprintf(window_name, "%s", GameWindowName);
-	SetWindowTextA(hWnd, window_name);
-}
 
 // Fmod objects
 FMOD_RESULT result;
@@ -55,6 +44,8 @@ FMOD::Studio::Bank* FmodBankObj;
 FMOD::Studio::Bank* FmodStringsBankObj;
 FMOD::Studio::EventDescription* FmodEventDescription;
 FMOD::Studio::EventInstance* FmodEventInstance;
+FMOD::Studio::Bus* FmodEventBus;
+FMOD::System* coreSystem;
 
 void Common_Init(void** /*extraDriverData*/)
 {
@@ -67,6 +58,7 @@ void fmod_Init()
 	Common_Init(&extraDriverData);
 
 	result = FMOD::Studio::System::create(&FmodStudioObj); // Create the Studio System object.
+
 	if (result != FMOD_OK)
 	{
 		printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
@@ -74,9 +66,9 @@ void fmod_Init()
 	}
 
 	// The Studio project is authored for Stereo sound, so set up the system output mode to match
-	FMOD::System* coreSystem = NULL;
+	coreSystem = NULL;
 	FmodStudioObj->getCoreSystem(&coreSystem);
-	coreSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_STEREO, 0);
+	coreSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0);
 
 	if (result == FMOD_OK)
 		printf("FMOD success! (%d) %s\n", result, FMOD_ErrorString(result));
@@ -100,46 +92,43 @@ void fmod_LoadBanks()
 	sprintf(path_MasterBank, "%s\\%s", gAudioPath, gBankName);
 	sprintf(path_StringsBank, "%s\\%s", gAudioPath, gStringsBankName);
 
-	FmodStudioObj->System::loadBankFile(path_MasterBank, FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj);
-	FmodStudioObj->System::loadBankFile(path_StringsBank, FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodStringsBankObj);
+	FmodStudioObj->loadBankFile(path_MasterBank, FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj);
+	FmodStudioObj->loadBankFile(path_StringsBank, FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodStringsBankObj);
 
 	printf("FMOD Banks Loaded");
 }
 
-void fmod_UpdateAudio()
-{
-	FmodStudioObj->System::update();
-}
-
 void Replacement_ModeOpening_ActNpChar_Call()
 {
-	fmod_UpdateAudio();
+	// Load audio
+	FMOD::Studio::EventDescription* eventDescription = NULL;
+	FmodStudioObj->getEvent("event:/Doukutsu/GoldenHour", &eventDescription);
 
-	bool is_playing = false;
-	if (is_playing == false)
-	{
-		FMOD::Studio::EventDescription* eventDescription = NULL;
-		FmodStudioObj->getEvent("event:/Doukutsu/exampleAudio", &eventDescription);
+	// Create audio
+	FMOD::Studio::EventInstance* eventInstance = NULL;
+	eventDescription->createInstance(&eventInstance);
 
-		FMOD::Studio::EventInstance* eventInstance = NULL;
-		eventDescription->createInstance(&eventInstance);
+	// Start audio
+	eventInstance->start();
 
-		eventInstance->start();
-		is_playing = true;
-	}
+	// Release when finished(?)
+	eventInstance->release();
+
+	// Update audio
+	FmodStudioObj->update();
 
 	ActNpChar();
 }
 
 void Replacement_ModeTitle_ActCaret_Call()
 {
-	fmod_UpdateAudio();
+	FmodStudioObj->update();
 	ActCaret();
 }
 
 void Replacement_ModeAction_ActStar_Call()
 {
-	fmod_UpdateAudio();
+	FmodStudioObj->update();
 	ActStar();
 }
 
@@ -156,5 +145,4 @@ void InitMod(void)
 	fmod_Init();
 	fmod_LoadBanks();
 	InitReplacements();
-	ModLoader_WriteJump((void*)0x412320, (void*)ExampleFunction);
 }
