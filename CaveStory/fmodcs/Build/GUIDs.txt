@@ -1,0 +1,5 @@
+{6810e736-820b-4e15-8a33-67a0be28579c} bank:/Doukutsu
+{f00dc7e2-f370-0257-0c7a-ed5e4fdb5104} bank:/Doukutsu.strings
+{2b2076ed-ec66-435d-86d8-98cb812caf3b} bus:/
+{3571c33c-8233-4a60-9601-d62b6439b105} bus:/Reverb
+{7b40220b-9cfc-49b2-9cf7-f101c3384ab0} event:/Doukutsu/exampleAudio
