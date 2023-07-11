@@ -106,12 +106,23 @@
 #define bFPS (*(BOOL*)0x49E464) // bFPS (if true it shows a framerate display)
 #define bFullscreen (*(BOOL*)0x49E460) // bFullscreen (if true, window.rect won't be saved or loaded)
 
+#define bActive (*(BOOL*)0x49E468)
+
 // <MIM Compatibility
 #define CSM_MIM_unobstructive (*(unsigned int*)0x49E184)
 #define CSM_MIM_tsc_plus  (*(int*)0x49E09C)
 
 // String array
 #define gMusicTable (*(char*(*)[42])0x4981E8)
+
+// Hookspaces & Hookjumps
+
+#define TextScriptBuffer (*(char**)0x4A5AD8) // I renamed this one but you get the idea
+#define CS_tsc_offset (*(unsigned int*)0x4A5AE0) // gTS.p_read
+
+#define CSH_tsc_start (void*) 0x4225D5, 12
+#define CSH_tsc_end (void*) 0x425244, 12
+#define CSJ_tsc_done 0x4225CB
 
 struct OTHER_RECT	// The original name for this struct is unknown
 {
