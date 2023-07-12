@@ -84,7 +84,6 @@ void Replacement_ModeAction_ActStar_Call()
 void ReleaseFmod()
 {
 	FmodBankObj->unload();
-	FmodStringsBankObj->unload();
 	FmodStudioObj->release();
 }
 

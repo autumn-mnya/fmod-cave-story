@@ -1,10 +1,13 @@
 #include <Windows.h>
-#include <shlwapi.h>
+// Filesystem
+#include <iostream>
+#include <filesystem>
+#include <unordered_map>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <string>
+
 #include <fmod_studio.hpp>
 #include <fmod.hpp>
 #include <fmod_errors.h>
@@ -13,15 +16,16 @@
 #include "Main.h"
 #include "mod_loader.h"
 #include "cave_story.h"
+namespace fs = std::filesystem;
 
-const char* gBankName = "Doukutsu.bank";
-const char* gStringsBankName = "Doukutsu.strings.bank";
+const char* gBankName = "Master.bank";
+const char* gStringsBankName = "Master.strings.bank";
+const char* gNullPath = "";
 
 // Fmod objects
 FMOD_RESULT result;
 FMOD::Studio::System* FmodStudioObj;
-FMOD::Studio::Bank* FmodBankObj; // (This needs changed!)
-FMOD::Studio::Bank* FmodStringsBankObj; // (This needs changed!)
+FMOD::Studio::Bank* FmodBankObj;
 FMOD::Studio::EventDescription* FmodEventDescription;
 FMOD::Studio::EventInstance* FmodMusicInstance; // Music Instance
 FMOD::Studio::Bus* FmodEventBus; // Event Bus (Non Functional)
@@ -75,14 +79,14 @@ void fmod_Init()
 
 void fmod_LoadBanks()
 {
-	// Load bank files
-	char path_MasterBank[MAX_PATH];
-	char path_StringsBank[MAX_PATH];
-	sprintf(path_MasterBank, "%s\\%s", gAudioPath, gBankName);
-	sprintf(path_StringsBank, "%s\\%s", gAudioPath, gStringsBankName);
+	char path[MAX_PATH];
+	
+	sprintf(path, "%s\\%s", gAudioPath, gNullPath); // gNullPath is needed for some unknown reason. This is like the fucking tf2 object
 
-	FmodStudioObj->loadBankFile(path_MasterBank, FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj);
-	FmodStudioObj->loadBankFile(path_StringsBank, FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodStringsBankObj);
+	for (const auto& entry : std::filesystem::directory_iterator(path))
+	{
+		FmodStudioObj->loadBankFile(entry.path().string().c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj); // this genuinely might just go lmao
+	}
 
 	printf("FMOD Banks Loaded");
 }

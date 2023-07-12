@@ -18,6 +18,7 @@
 char eventName[MAX_PATH];
 
 // Used for playing fmod audio files
+// JakeV wrote this in "TSC Extended"
 void GetTextScriptString(char returnData[])
 {
 	int i = 0;

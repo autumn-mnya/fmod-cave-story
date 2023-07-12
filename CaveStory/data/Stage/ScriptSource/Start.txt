@@ -43,5 +43,11 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 <FL-0800
 <EVP0000<END
 
+#0307
+<PEVevent:/autumntest/wii$<END
+
+#0404
+<CMU0042<END
+
 #1000
 <END

@@ -16,7 +16,6 @@
 extern FMOD_RESULT result;
 extern FMOD::Studio::System* FmodStudioObj;
 extern FMOD::Studio::Bank* FmodBankObj;
-extern FMOD::Studio::Bank* FmodStringsBankObj;
 extern FMOD::Studio::EventDescription* FmodEventDescription;
 extern FMOD::Studio::EventInstance* FmodMusicInstance;
 extern FMOD::Studio::Bus* FmodEventBus;
