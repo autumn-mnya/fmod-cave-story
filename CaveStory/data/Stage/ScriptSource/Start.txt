@@ -32,6 +32,16 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 #0303
 <PEVevent:/Doukutsu/DemonDragon$<END
 
+#0304
+<PEVevent:/Doukutsu/UtopiaShelter$<END
+
+#0305
+<FLJ0800:0306<FL+0800
+<EVP0001<END
+
+#0306
+<FL-0800
+<EVP0000<END
 
 #1000
 <END

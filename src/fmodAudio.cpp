@@ -20,11 +20,11 @@ const char* gStringsBankName = "Doukutsu.strings.bank";
 // Fmod objects
 FMOD_RESULT result;
 FMOD::Studio::System* FmodStudioObj;
-FMOD::Studio::Bank* FmodBankObj;
-FMOD::Studio::Bank* FmodStringsBankObj;
+FMOD::Studio::Bank* FmodBankObj; // (This needs changed!)
+FMOD::Studio::Bank* FmodStringsBankObj; // (This needs changed!)
 FMOD::Studio::EventDescription* FmodEventDescription;
-FMOD::Studio::EventInstance* FmodMusicInstance; // Music
-FMOD::Studio::Bus* FmodEventBus;
+FMOD::Studio::EventInstance* FmodMusicInstance; // Music Instance
+FMOD::Studio::Bus* FmodEventBus; // Event Bus (Non Functional)
 FMOD::System* coreSystem;
 
 void ERRCHECK(FMOD_RESULT result)

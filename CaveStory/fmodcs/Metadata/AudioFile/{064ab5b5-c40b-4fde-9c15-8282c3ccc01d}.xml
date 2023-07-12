@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{064ab5b5-c40b-4fde-9c15-8282c3ccc01d}">
+		<property name="assetPath">
+			<value>25. Utopia Shelter - In The Depths.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>636.39510204081637</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{841b05f0-9bdc-4396-bbf5-fee32a5e02b4}</destination>
+		</relationship>
+	</object>
+</objects>

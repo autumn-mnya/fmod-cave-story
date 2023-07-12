@@ -40,22 +40,25 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 	char* where = TextScriptBuffer + gTS->p_read;
 	if (where[0] != '<')
 		return 0;
-	if (strncmp(where + 1, "PEV", 3) == 0)
+	if (strncmp(where + 1, "PEV", 3) == 0) // Play EVent
 	{
 		gTS->p_read += 4;
 		FmodMusicInstance->release();
 		GetTextScriptString(eventName);
 		PlayAudio(eventName);
 	}
-	else if (strncmp(where + 1, "SEV", 3) == 0)
+	else if (strncmp(where + 1, "SEV", 3) == 0) // Stop EVent
 	{
 		gTS->p_read += 4;
-		// I should set eventName to 0 or something ..
-		// Would help with saving/loading a profile I would assume?
+		memset(eventName, 0, sizeof(eventName));
 		FmodMusicInstance->release();
-
-		FmodMusicInstance->stop(FMOD_STUDIO_STOP_IMMEDIATE);
-		FmodEventBus->stopAllEvents(FMOD_STUDIO_STOP_IMMEDIATE);
+		PlayAudio("event:/null");
+	}
+	else if (strncmp(where + 1, "EVP", 3) == 0) // EVent Progress
+	{
+		x = GetTextScriptNo(gTS->p_read + 4);
+		FmodMusicInstance->setParameterByName("progress", x, false);
+		gTS->p_read += 8;
 	}
 	else
 		return 0;
