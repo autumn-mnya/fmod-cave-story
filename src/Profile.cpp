@@ -93,7 +93,6 @@ BOOL LoadFmodFile(const char* name)
 // 0x424DAE // Replace TSC <SVP call instead?
 void Replacement_TextScript_SaveProfile_Call(const char* name)
 {
-	printf("save fmod file\n");
 	SaveProfile(name);
 	SaveFmodFile(NULL);
 }
@@ -101,7 +100,6 @@ void Replacement_TextScript_SaveProfile_Call(const char* name)
 // 0x41D52B
 void Replacement_LoadProfile_ClearValueView_Call()
 {
-	printf("load fmod file\n");
 	ClearValueView();
 
 	LoadFmodFile(NULL);
