@@ -18,4 +18,3 @@ typedef struct ProfileFmodData
 
 void Replacement_TextScript_SaveProfile_Call(const char* name);
 void Replacement_LoadProfile_ClearValueView_Call();
-void InitMod_FmodProfileDat();

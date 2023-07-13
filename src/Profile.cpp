@@ -16,7 +16,7 @@
 #include "fmodAudio.h"
 #include "TextScript.h"
 
-const char* const gFmodFileName = "Profile_Fmod.dat";
+const char* const gFmodFileName = "Profile.FMOD.dat";
 
 BOOL SaveFmodFile(const char* name)
 {
@@ -90,7 +90,7 @@ BOOL LoadFmodFile(const char* name)
 	return TRUE;
 }
 
-// 0x424DAE // Replace TSC <SVP call instead?
+// 0x424DAE
 void Replacement_TextScript_SaveProfile_Call(const char* name)
 {
 	SaveProfile(name);
