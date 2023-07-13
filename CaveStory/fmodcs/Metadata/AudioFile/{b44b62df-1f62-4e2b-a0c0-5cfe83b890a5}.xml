@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b44b62df-1f62-4e2b-a0c0-5cfe83b890a5}">
+		<property name="assetPath">
+			<value>softwind.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>35.683265306122451</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{841b05f0-9bdc-4396-bbf5-fee32a5e02b4}</destination>
+		</relationship>
+	</object>
+</objects>

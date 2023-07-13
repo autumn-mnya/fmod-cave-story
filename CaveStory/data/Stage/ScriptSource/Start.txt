@@ -24,13 +24,13 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 <CMU0000<END
 
 #0301
-<PEVevent:/Doukutsu/GoldenHour$<END
+<KEY<MSG<PEVevent:/test$<END
 
 #0302
-<SEV<END
+<SEV0000<END
 
 #0303
-<PEVevent:/Doukutsu/DemonDragon$<END
+<KEY<MSG<CEV0001<PEVevent:/testambi$<CEV0000<END
 
 #0304
 <PEVevent:/Doukutsu/UtopiaShelter$<END

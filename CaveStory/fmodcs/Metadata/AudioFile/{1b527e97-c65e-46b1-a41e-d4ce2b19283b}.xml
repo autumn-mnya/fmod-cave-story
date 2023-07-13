@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1b527e97-c65e-46b1-a41e-d4ce2b19283b}">
+		<property name="assetPath">
+			<value>1.07 5 am (Sunny).mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>217.28653061224489</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{841b05f0-9bdc-4396-bbf5-fee32a5e02b4}</destination>
+		</relationship>
+	</object>
+</objects>

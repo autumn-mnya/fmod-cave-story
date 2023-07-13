@@ -15,6 +15,8 @@
 #include "Main.h"
 #include "mod_loader.h"
 #include "cave_story.h"
+#include "TextScript.h"
+
 namespace fs = std::filesystem;
 
 const char* gBankName = "Master.bank";
@@ -90,6 +92,13 @@ void fmod_LoadBanks()
 	printf("FMOD Banks Loaded");
 }
 
+// Replease Fmod Audio
+void ReleaseFmod()
+{
+	FmodBankObj->unload();
+	FmodStudioObj->release();
+}
+
 void PlayAudio(const char* audiofile)
 {
 	// Load audio
@@ -105,4 +114,17 @@ void PlayAudio(const char* audiofile)
 
 	// Release when finished(?)
 	FmodMusicInstance->release();
+}
+
+void StopFmodAllAudio()
+{
+	FmodMusicInstance->release();
+	PlayAudio(gNull1Name);
+	PlayAudio(gNull2Name);
+	PlayAudio(gNull3Name);
+	PlayAudio(gNull4Name);
+	PlayAudio(gNull5Name);
+	PlayAudio(gNull6Name);
+	PlayAudio(gNull7Name);
+	PlayAudio(gNull8Name);
 }

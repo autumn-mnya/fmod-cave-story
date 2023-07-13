@@ -23,4 +23,6 @@ extern FMOD::System* coreSystem;
 
 void fmod_Init();
 void fmod_LoadBanks();
+void ReleaseFmod();
 void PlayAudio(const char* audiofile);
+void StopFmodAllAudio();
