@@ -26,6 +26,7 @@ const char* gNull5Name = "event:/Null/null0004";
 const char* gNull6Name = "event:/Null/null0005";
 const char* gNull7Name = "event:/Null/null0006";
 const char* gNull8Name = "event:/Null/null0007";
+const char* gNullParameter = "null";
 
 char eventName[MAX_PATH] = "event:/Null/null0000";
 char eventName2[MAX_PATH] = "event:/Null/null0001";
@@ -35,6 +36,7 @@ char eventName5[MAX_PATH] = "event:/Null/null0004";
 char eventName6[MAX_PATH] = "event:/Null/null0005";
 char eventName7[MAX_PATH] = "event:/Null/null0006";
 char eventName8[MAX_PATH] = "event:/Null/null0007";
+char eventParameter[MAX_PATH] = "null";
 
 // Used for playing fmod audio files
 // JakeV wrote this in "TSC Extended"
@@ -171,10 +173,15 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 		
 		gTS->p_read += 8;
 	}
-	else if (strncmp(where + 1, "EVP", 3) == 0) // EVent Progress
+	else if (strncmp(where + 1, "CVP", 3) == 0) // Change eVent Parameter
+	{
+		gTS->p_read += 4;
+		GetTextScriptString(eventParameter);
+	}
+	else if (strncmp(where + 1, "EVP", 3) == 0) // EVent Parameter
 	{
 		x = GetTextScriptNo(gTS->p_read + 4);
-		FmodMusicInstance->setParameterByName("progress", x, false);
+		FmodMusicInstance->setParameterByName(eventParameter, x, false);
 		gTS->p_read += 8;
 	}
 	else

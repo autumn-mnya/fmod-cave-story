@@ -35,7 +35,7 @@ void GetGamePath()
 	strcat(gDataPath, "\\data");
 
 	// Get path of the audio folder
-	strcpy(gAudioPath, gModulePath);
+	strcpy(gAudioPath, gDataPath);
 	strcat(gAudioPath, "\\audio\\Desktop");
 }
 

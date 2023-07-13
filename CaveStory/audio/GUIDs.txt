@@ -1,8 +1,0 @@
-{86dada77-4180-4f0c-b9f4-b43a185bca51} bank:/Autumn
-{6810e736-820b-4e15-8a33-67a0be28579c} bank:/Master
-{f00dc7e2-f370-0257-0c7a-ed5e4fdb5104} bank:/Master.strings
-{2b2076ed-ec66-435d-86d8-98cb812caf3b} bus:/
-{66b4068a-5327-49dc-b9e3-555d1998e40d} bus:/Music
-{3571c33c-8233-4a60-9601-d62b6439b105} bus:/Reverb
-{31d6e50a-547d-4e53-8ba0-7e474e087d52} event:/example
-{0e87493d-d682-4f79-80c9-1767b2631be2} event:/null
