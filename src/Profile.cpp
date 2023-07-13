@@ -16,7 +16,7 @@
 #include "fmodAudio.h"
 #include "TextScript.h"
 
-const char* const gFmodFileName = "Profile.FMOD.dat";
+const char* gFmodFileName = "Profile.FMOD.dat";
 
 BOOL SaveFmodFile(const char* name)
 {
