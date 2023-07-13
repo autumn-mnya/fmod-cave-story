@@ -4,7 +4,6 @@
 /Release
 /ZZ-FinalRelease
 /CaveStory/fmodcs_project
-/CaveStory/mods/60fps
 mod.vcxproj.user
 *.exp
 *.lib
