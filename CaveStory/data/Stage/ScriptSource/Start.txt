@@ -30,10 +30,10 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 <SEV0000<SEV0001<END
 
 #0303
-<PEVevent:/test$<END
+<PEVevent:/Null/null0000$<END
 
 #0304
-<BNKaudio\Desktop$<END
+<PEVevent:/Null/null0000$<END
 
 #0305
 <FLJ0800:0306<FL+0800
@@ -48,9 +48,6 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 
 #0404
 <CMU0042<END
-
-#0405
-<PEVevent:/test2$<END
 
 #1000
 <END

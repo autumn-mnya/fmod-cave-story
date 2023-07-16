@@ -20,11 +20,9 @@ extern FMOD::Studio::EventDescription* FmodEventDescription;
 extern FMOD::Studio::EventInstance* FmodMusicInstance;
 extern FMOD::Studio::Bus* FmodEventBus;
 extern FMOD::System* coreSystem;
-extern FMOD_GUID guid;
 
 void fmod_Init();
 void fmod_LoadBanks();
-void fmod_ParseGuidsTXT();
 void ReleaseFmod();
 void PlayAudio(const char* audiofile);
 void StopFmodAllAudio();
