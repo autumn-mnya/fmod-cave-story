@@ -3,7 +3,7 @@
 #include <iostream>
 #include <filesystem>
 #include <stddef.h>
-#include <stdio.h>
+#include <cstdio>
 #include <stdlib.h>
 #include <string>
 
@@ -31,6 +31,7 @@ FMOD::Studio::EventDescription* FmodEventDescription;
 FMOD::Studio::EventInstance* FmodMusicInstance; // Music Instance
 FMOD::Studio::Bus* FmodEventBus; // Event Bus (Non Functional)
 FMOD::System* coreSystem;
+FMOD_GUID guid;
 
 void ERRCHECK(FMOD_RESULT result)
 {
@@ -63,9 +64,6 @@ void fmod_Init()
 	FmodStudioObj->getCoreSystem(&coreSystem);
 	coreSystem->setSoftwareFormat(0, FMOD_SPEAKERMODE_5POINT1, 0);
 
-	if (result == FMOD_OK)
-		printf("FMOD success! (%d) %s\n", result, FMOD_ErrorString(result));
-
 	// Initialize FMOD Studio, which will also initialize FMOD Core
 	result = FmodStudioObj->initialize(1024, FMOD_STUDIO_INIT_SYNCHRONOUS_UPDATE, FMOD_INIT_NORMAL, extraDriverData);
 	if (result != FMOD_OK)
@@ -73,23 +71,44 @@ void fmod_Init()
 		printf("FMOD error! (%d) %s\n", result, FMOD_ErrorString(result));
 		exit(-1);
 	}
-
-	if (result == FMOD_OK)
-		printf("FMOD success! (%d) %s\n", result, FMOD_ErrorString(result));
 }
 
 void fmod_LoadBanks()
 {
 	char path[MAX_PATH];
 	
-	sprintf(path, "%s\\%s", gAudioPath, gNullPath); // gNullPath is needed for some unknown reason. This is like the fucking tf2 object
+	sprintf(path, "%s\\%s", gAudioPath, gNullPath);
 
 	for (const auto& entry : std::filesystem::directory_iterator(path))
-	{
-		FmodStudioObj->loadBankFile(entry.path().string().c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj); // this genuinely might just go lmao
-	}
+		FmodStudioObj->loadBankFile(entry.path().string().c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj);
+}
 
-	printf("FMOD Banks Loaded");
+void fmod_ParseGuidsTXT()
+{
+	FILE* fp;
+	char path[MAX_PATH];
+
+	char line[256];
+
+	sprintf(path, "%s\\%s", GUIDsPath, gNullPath);
+	
+	for (const auto& entry : std::filesystem::directory_iterator(path))
+	{
+		fp = fopen(entry.path().string().c_str(), "rb");
+
+		while (fgets(line, sizeof(line), fp)) {
+			char* end = strchr(line, ' ');
+			if (end) {
+				*end = '\0';
+			}
+			sscanf(line, "%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+				&guid.Data1, &guid.Data2, &guid.Data3,
+				&guid.Data4[0], &guid.Data4[1], &guid.Data4[2], &guid.Data4[3],
+				&guid.Data4[4], &guid.Data4[5], &guid.Data4[6], &guid.Data4[7]);
+			// Do something with the GUID
+			FMOD::Studio::parseID(line, &guid);
+		}
+	}
 }
 
 // Replease Fmod Audio

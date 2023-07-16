@@ -23,6 +23,7 @@
 char gModulePath[MAX_PATH];
 char gDataPath[MAX_PATH];
 char gAudioPath[MAX_PATH];
+char GUIDsPath[MAX_PATH];
 
 void GetGamePath()
 {
@@ -37,6 +38,10 @@ void GetGamePath()
 	// Get path of the audio folder
 	strcpy(gAudioPath, gDataPath);
 	strcat(gAudioPath, "\\audio\\Desktop");
+
+	// Get path of the GUIDs folder
+	strcpy(GUIDsPath, gDataPath);
+	strcat(GUIDsPath, "\\fmodGUIDS");
 }
 
 /*
@@ -122,6 +127,7 @@ void InitMod(void)
 	GetGamePath();
 	fmod_Init();
 	fmod_LoadBanks();
+	fmod_ParseGuidsTXT();
 	InitReplacements();
 	InitMod_TSC();
 	InitMod_Settings();
