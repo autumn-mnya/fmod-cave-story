@@ -132,7 +132,7 @@ void PlayAudio(const char* audiofile)
         if (result == FMOD_OK)
         {
             // Create audio instance
-            FMOD::Studio::EventInstance* FmodMusicInstance = nullptr;
+            FmodMusicInstance = nullptr;
             eventDescription->createInstance(&FmodMusicInstance);
 
             // Start audio
@@ -197,7 +197,7 @@ void PlayAudio(const char* audiofile)
                                         FmodStudioObj->getEventByID(&guid, &eventDescription);
 
                                         // Create audio instance
-                                        FMOD::Studio::EventInstance* FmodMusicInstance = nullptr;
+                                        FmodMusicInstance = nullptr;
                                         eventDescription->createInstance(&FmodMusicInstance);
 
                                         // Start audio
