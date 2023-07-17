@@ -71,49 +71,49 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 			default:
 				memset(eventName, 0, sizeof(eventName));
 				GetTextScriptString(eventName);
-				PlayAudio2(eventName);
+				PlayAudio(eventName);
 				break;
 
 			case 1:
 				memset(eventName2, 0, sizeof(eventName2));
 				GetTextScriptString(eventName2);
-				PlayAudio2(eventName2);
+				PlayAudio(eventName2);
 				break;
 
 			case 2:
 				memset(eventName3, 0, sizeof(eventName3));
 				GetTextScriptString(eventName3);
-				PlayAudio2(eventName3);
+				PlayAudio(eventName3);
 				break;
 
 			case 3:
 				memset(eventName4, 0, sizeof(eventName4));
 				GetTextScriptString(eventName4);
-				PlayAudio2(eventName4);
+				PlayAudio(eventName4);
 				break;
 
 			case 4:
 				memset(eventName5, 0, sizeof(eventName5));
 				GetTextScriptString(eventName5);
-				PlayAudio2(eventName5);
+				PlayAudio(eventName5);
 				break;
 
 			case 5:
 				memset(eventName6, 0, sizeof(eventName6));
 				GetTextScriptString(eventName6);
-				PlayAudio2(eventName6);
+				PlayAudio(eventName6);
 				break;
 
 			case 6:
 				memset(eventName7, 0, sizeof(eventName7));
 				GetTextScriptString(eventName7);
-				PlayAudio2(eventName7);
+				PlayAudio(eventName7);
 				break;
 
 			case 7:
 				memset(eventName8, 0, sizeof(eventName8));
 				GetTextScriptString(eventName8);
-				PlayAudio2(eventName8);
+				PlayAudio(eventName8);
 				break;
 		}
 

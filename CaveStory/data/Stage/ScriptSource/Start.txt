@@ -24,13 +24,13 @@ From somewhere, a transmission...<NOD<CLO<FL+0430<TRA0018:0500:0002:0000
 <CMU0000<END
 
 #0301
-<PEVevent:/test$<END
+<PEVevent:/Null/null0000$<END
 
 #0302
 <SEV0000<SEV0001<END
 
 #0303
-<PEVevent:/test2$<END
+<PEVevent:/Null/null0000$<END
 
 #0304
 <PEVevent:/Null/null0000$<END
