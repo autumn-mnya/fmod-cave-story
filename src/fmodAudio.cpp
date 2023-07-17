@@ -12,6 +12,8 @@
 #include <fmod_errors.h>
 #include <fmod_common.h>
 
+#include <sstream>
+
 #include "Main.h"
 #include "mod_loader.h"
 #include "cave_story.h"
@@ -81,12 +83,21 @@ void fmod_Init()
 void fmod_LoadBanks()
 {
 	char path[MAX_PATH];
-	
-	sprintf(path, "%s\\%s", gAudioPath, gNullPath); // gNullPath is needed for some unknown reason. This is like the fucking tf2 object
+	sprintf(path, "%s\\%s", gAudioPath, gNullPath);
 
 	for (const auto& entry : std::filesystem::directory_iterator(path))
 	{
-		FmodStudioObj->loadBankFile(entry.path().string().c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj); // this genuinely might just go lmao
+		if (entry.is_regular_file())
+		{
+			std::string filePath = entry.path().string();
+			std::string extension = filePath.substr(filePath.find_last_of(".") + 1);
+
+			// Check if the file extension is ".bank" before loading
+			if (extension == "bank")
+			{
+				FmodStudioObj->loadBankFile(filePath.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &FmodBankObj);
+			}
+		}
 	}
 
 	printf("FMOD Banks Loaded");
@@ -116,6 +127,81 @@ void PlayAudio(const char* audiofile)
 	FmodMusicInstance->release();
 }
 
+void PlayAudio2(const char* audiofile)
+{
+	char folderPath[256];
+	sprintf(folderPath, "%s\\%s", gAudioPath, gNullPath);
+
+	for (const auto& entry : std::filesystem::directory_iterator(folderPath))
+	{
+		if (entry.is_regular_file())
+		{
+			std::string filePath = entry.path().string();
+			std::string extension = filePath.substr(filePath.find_last_of(".") + 1);
+
+			// Check if the file extension is ".guids.txt" before opening
+			if (extension == "txt")
+			{
+				std::string filename = entry.path().filename().string();
+				std::string guidExtension = ".guids.txt";
+
+				// Check if the filename ends with ".guids.txt"
+				if (filename.size() >= guidExtension.size() &&
+					filename.compare(filename.size() - guidExtension.size(), guidExtension.size(), guidExtension) == 0)
+				{
+					FILE* file = fopen(filePath.c_str(), "r");
+					if (file)
+					{
+						char line[256];
+						FMOD_GUID guid;
+						while (fgets(line, sizeof(line), file))
+						{
+							char* space = strchr(line, ' ');
+							if (space)
+							{
+								// Extract the GUID from the line
+								char guidString[256];
+								strncpy(guidString, line, space - line);
+								guidString[space - line] = '\0';
+
+								// Extract the event name from the line
+								char eventName[256];
+								strcpy(eventName, space + 1);
+
+								if (strcmp(eventName, audiofile) == 0)
+								{
+									// Convert GUID string to FMOD_GUID
+									FMOD::Studio::parseID(guidString, &guid);
+
+									// Load audio
+									FMOD::Studio::EventDescription* eventDescription = nullptr;
+									FmodStudioObj->getEventByID(&guid, &eventDescription);
+
+									// Create audio instance
+									FMOD::Studio::EventInstance* FmodMusicInstance = nullptr;
+									eventDescription->createInstance(&FmodMusicInstance);
+
+									// Start audio
+									FmodMusicInstance->start();
+
+									// Release when finished
+									FmodMusicInstance->release();
+									fclose(file);
+									return;  // Found and played the audio, so exit the function
+								}
+							}
+						}
+						fclose(file);
+					}
+				}
+			}
+		}
+	}
+
+	// Audio file not found in any GUIDs text file
+	printf("Audio file '%s' not found.\n", audiofile);
+}
+
 void StopFmodAllAudio()
 {
 	FmodMusicInstance->release();
@@ -128,3 +214,25 @@ void StopFmodAllAudio()
 	PlayAudio(gNull7Name);
 	PlayAudio(gNull8Name);
 }
+
+/*
+void GuidTest()
+{
+	char path[256];
+	sprintf(path, "%s\\%s", gAudioPath, "GUIDs.txt");
+	FILE* file = fopen(path, "r");
+	char line[256];
+	while (fgets(line, sizeof(line), file))
+	{
+		char guid[37];
+		char eventName[256];
+		sscanf(line, "%36s %255[^\n]", guid, eventName);
+		if (strstr(eventName, "event:/") != NULL)
+		{
+			char* eventNameWithoutPrefix = eventName + std::string(eventName).find(":") + 1;
+			printf("GUID: %s, Event Name: %s\n", guid, eventNameWithoutPrefix);
+		}
+	}
+	fclose(file);
+}
+*/
