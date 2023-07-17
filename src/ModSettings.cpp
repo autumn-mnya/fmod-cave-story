@@ -20,6 +20,8 @@
 
 void InitMod_Settings()
 {
+	audioDirectory = ModLoader_GetSettingString("FMOD Audio Directory", "data\\audio\\Desktop");
+
 	setting_titlescreen_cavestory_music = ModLoader_GetSettingString("Title Screen Music (FMOD)", gNull1Name);
 	setting_titlescreen_hell_music = ModLoader_GetSettingString("Title Screen Music [Running Hell] (FMOD)", gNull1Name);
 	setting_titlescreen_toroko_music = ModLoader_GetSettingString("Title Screen Music [Torokos Theme] (FMOD)", gNull1Name);

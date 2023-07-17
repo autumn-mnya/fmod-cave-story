@@ -24,6 +24,8 @@ char gModulePath[MAX_PATH];
 char gDataPath[MAX_PATH];
 char gAudioPath[MAX_PATH];
 
+const char* audioDirectory = "data\\audio\\Desktop";
+
 void GetGamePath()
 {
 	// Get executable's path
@@ -35,8 +37,9 @@ void GetGamePath()
 	strcat(gDataPath, "\\data");
 
 	// Get path of the audio folder
-	strcpy(gAudioPath, gDataPath);
-	strcat(gAudioPath, "\\audio\\Desktop");
+	strcpy(gAudioPath, gModulePath);
+	strcat(gAudioPath, "\\");
+	strcat(gAudioPath, audioDirectory);
 }
 
 /*
@@ -119,10 +122,10 @@ void InitReplacements()
 
 void InitMod(void)
 {
+	InitMod_Settings();
 	GetGamePath();
 	fmod_Init();
 	fmod_LoadBanks();
 	InitReplacements();
 	InitMod_TSC();
-	InitMod_Settings();
 }
