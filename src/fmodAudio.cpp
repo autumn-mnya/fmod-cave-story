@@ -80,6 +80,7 @@ void fmod_Init()
 		printf("FMOD success! (%d) %s\n", result, FMOD_ErrorString(result));
 }
 
+// Load audio banks
 void fmod_LoadBanks()
 {
 	char path[MAX_PATH];
@@ -110,6 +111,7 @@ void ReleaseFmod()
 	FmodStudioObj->release();
 }
 
+// Play FMOD Audio
 void PlayAudio(const char* audiofile)
 {
     char folderPath[256];
