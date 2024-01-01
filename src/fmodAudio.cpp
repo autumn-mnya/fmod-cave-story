@@ -112,7 +112,7 @@ void ReleaseFmod()
 }
 
 // Play FMOD Audio
-void PlayAudio(const char* audiofile)
+void PlayFModAudio(const char* audiofile)
 {
     char folderPath[256];
     sprintf(folderPath, "%s\\%s", gAudioPath, gNullPath);
@@ -226,34 +226,12 @@ void PlayAudio(const char* audiofile)
 void StopFmodAllAudio()
 {
 	FmodMusicInstance->release();
-	PlayAudio(gNull1Name);
-	PlayAudio(gNull2Name);
-	PlayAudio(gNull3Name);
-	PlayAudio(gNull4Name);
-	PlayAudio(gNull5Name);
-	PlayAudio(gNull6Name);
-	PlayAudio(gNull7Name);
-	PlayAudio(gNull8Name);
+    PlayFModAudio(gNull1Name);
+    PlayFModAudio(gNull2Name);
+    PlayFModAudio(gNull3Name);
+    PlayFModAudio(gNull4Name);
+    PlayFModAudio(gNull5Name);
+    PlayFModAudio(gNull6Name);
+    PlayFModAudio(gNull7Name);
+    PlayFModAudio(gNull8Name);
 }
-
-/*
-void GuidTest()
-{
-	char path[256];
-	sprintf(path, "%s\\%s", gAudioPath, "GUIDs.txt");
-	FILE* file = fopen(path, "r");
-	char line[256];
-	while (fgets(line, sizeof(line), file))
-	{
-		char guid[37];
-		char eventName[256];
-		sscanf(line, "%36s %255[^\n]", guid, eventName);
-		if (strstr(eventName, "event:/") != NULL)
-		{
-			char* eventNameWithoutPrefix = eventName + std::string(eventName).find(":") + 1;
-			printf("GUID: %s, Event Name: %s\n", guid, eventNameWithoutPrefix);
-		}
-	}
-	fclose(file);
-}
-*/

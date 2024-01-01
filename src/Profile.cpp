@@ -105,12 +105,24 @@ void Replacement_LoadProfile_ClearValueView_Call()
 	LoadFmodFile(NULL);
 	
 	// Play all fmod audio
-	PlayAudio(eventName);
-	PlayAudio(eventName2);
-	PlayAudio(eventName3);
-	PlayAudio(eventName4);
-	PlayAudio(eventName5);
-	PlayAudio(eventName6);
-	PlayAudio(eventName7);
-	PlayAudio(eventName8);
+	PlayFModAudio(eventName);
+	PlayFModAudio(eventName2);
+	PlayFModAudio(eventName3);
+	PlayFModAudio(eventName4);
+	PlayFModAudio(eventName5);
+	PlayFModAudio(eventName6);
+	PlayFModAudio(eventName7);
+	PlayFModAudio(eventName8);
+}
+
+void FModClearEventNames()
+{
+	memset(eventName, 0, sizeof(eventName));
+	memset(eventName2, 0, sizeof(eventName2));
+	memset(eventName3, 0, sizeof(eventName3));
+	memset(eventName4, 0, sizeof(eventName4));
+	memset(eventName5, 0, sizeof(eventName5));
+	memset(eventName6, 0, sizeof(eventName6));
+	memset(eventName7, 0, sizeof(eventName7));
+	memset(eventName8, 0, sizeof(eventName8));
 }

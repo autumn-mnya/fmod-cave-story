@@ -58,6 +58,7 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 {
 	(void)ud;
 	int w, x, y, z;
+	char event_name_tsc[MAX_PATH];
 
 	char* where = TextScriptBuffer + gTS->p_read;
 	if (where[0] != '<')
@@ -69,51 +70,83 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 		switch (eventNameChoice)
 		{
 			default:
-				memset(eventName, 0, sizeof(eventName));
-				GetTextScriptString(eventName);
-				PlayAudio(eventName);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName, event_name_tsc);
+				}
 				break;
 
 			case 1:
-				memset(eventName2, 0, sizeof(eventName2));
-				GetTextScriptString(eventName2);
-				PlayAudio(eventName2);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName2, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName2, event_name_tsc);
+				}
 				break;
 
 			case 2:
-				memset(eventName3, 0, sizeof(eventName3));
-				GetTextScriptString(eventName3);
-				PlayAudio(eventName3);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName3, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName3, event_name_tsc);
+				}
 				break;
 
 			case 3:
-				memset(eventName4, 0, sizeof(eventName4));
-				GetTextScriptString(eventName4);
-				PlayAudio(eventName4);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName4, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName4, event_name_tsc);
+				}
 				break;
 
 			case 4:
-				memset(eventName5, 0, sizeof(eventName5));
-				GetTextScriptString(eventName5);
-				PlayAudio(eventName5);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName5, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName5, event_name_tsc);
+				}
 				break;
 
 			case 5:
-				memset(eventName6, 0, sizeof(eventName6));
-				GetTextScriptString(eventName6);
-				PlayAudio(eventName6);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName6, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName6, event_name_tsc);
+				}
 				break;
 
 			case 6:
-				memset(eventName7, 0, sizeof(eventName7));
-				GetTextScriptString(eventName7);
-				PlayAudio(eventName7);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName7, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName7, event_name_tsc);
+				}
 				break;
 
 			case 7:
-				memset(eventName8, 0, sizeof(eventName8));
-				GetTextScriptString(eventName8);
-				PlayAudio(eventName8);
+				memset(event_name_tsc, 0, sizeof(event_name_tsc));
+				GetTextScriptString(event_name_tsc);
+				if (!(strcmp(eventName8, event_name_tsc) == 0))
+				{
+					PlayFModAudio(event_name_tsc);
+					strcpy(eventName8, event_name_tsc);
+				}
 				break;
 		}
 
@@ -132,42 +165,42 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 			default:
 				memset(eventName, 0, sizeof(eventName));
 				strcpy(eventName, gNull1Name);
-				PlayAudio("event:/Null/null0000");
+				PlayFModAudio("event:/Null/null0000");
 				break;
 
 			case 1:
 				memset(eventName2, 0, sizeof(eventName2));
-				PlayAudio("event:/Null/null0001");
+				PlayFModAudio("event:/Null/null0001");
 				break;
 
 			case 2:
 				memset(eventName3, 0, sizeof(eventName3));
-				PlayAudio("event:/Null/null0002");
+				PlayFModAudio("event:/Null/null0002");
 				break;
 
 			case 3:
 				memset(eventName4, 0, sizeof(eventName4));
-				PlayAudio("event:/Null/null0003");
+				PlayFModAudio("event:/Null/null0003");
 				break;
 
 			case 4:
 				memset(eventName5, 0, sizeof(eventName5));
-				PlayAudio("event:/Null/null0004");
+				PlayFModAudio("event:/Null/null0004");
 				break;
 
 			case 5:
 				memset(eventName6, 0, sizeof(eventName6));
-				PlayAudio("event:/Null/null0005");
+				PlayFModAudio("event:/Null/null0005");
 				break;
 
 			case 6:
 				memset(eventName7, 0, sizeof(eventName7));
-				PlayAudio("event:/Null/null0006");
+				PlayFModAudio("event:/Null/null0006");
 				break;
 
 			case 7:
 				memset(eventName8, 0, sizeof(eventName8));
-				PlayAudio("event:/Null/null0007");
+				PlayFModAudio("event:/Null/null0007");
 				break;
 		}
 		

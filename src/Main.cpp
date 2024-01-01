@@ -19,6 +19,8 @@
 #include "Profile.h"
 #include "TextScript.h"
 
+#include "AutPI.h"
+
 // Paths
 char gModulePath[MAX_PATH];
 char gDataPath[MAX_PATH];
@@ -58,33 +60,12 @@ void Replacement_ActiveWindow_StopOrganya_Call()
 }
 */
 
-void Replacement_ModeOpening_ActNpChar_Call()
+void FModUpdate()
 {
-	// Update audio
 	FmodStudioObj->update();
-
-	ActNpChar();
 }
-
-void Replacement_ModeTitle_ActCaret_Call()
+void ReleaseFModAudio()
 {
-	// Update audio
-	FmodStudioObj->update();
-
-	ActCaret();
-}
-
-void Replacement_ModeAction_ActStar_Call()
-{
-	// Update audio
-	FmodStudioObj->update();
-
-	ActStar();
-}
-
-void ReleaseCreditReplacement()
-{
-	ReleaseCreditScript();
 	ReleaseFmod();
 }
 
@@ -109,15 +90,17 @@ void InitReplacements()
 	ModLoader_WriteCall((void*)0x412BD6, (void*)Replacement_InactiveWindow_StopOrganya_Call);
 	ModLoader_WriteCall((void*)0x412C06, (void*)Replacement_ActiveWindow_StopOrganya_Call);
 	*/
+
 	InitMod_ReplacementChangeMusic();
 	// Game
-	ModLoader_WriteCall((void*)0x40F809, (void*)Replacement_ModeOpening_ActNpChar_Call);
-	ModLoader_WriteCall((void*)0x40FFDC, (void*)Replacement_ModeTitle_ActCaret_Call);
-	ModLoader_WriteCall((void*)0x410555, (void*)Replacement_ModeAction_ActStar_Call);
-	ModLoader_WriteCall((void*)0x40F6F9, (void*)ReleaseCreditReplacement);
+	RegisterOpeningActionElement(FModUpdate);
+	RegisterTitleActionElement(FModUpdate);
+	RegisterActionElement(FModUpdate);
+	RegisterReleaseElement(ReleaseFModAudio);
 	// Profile
 	ModLoader_WriteCall((void*)0x424DAE, (void*)Replacement_TextScript_SaveProfile_Call);
 	ModLoader_WriteCall((void*)0x41D52B, (void*)Replacement_LoadProfile_ClearValueView_Call);
+	RegisterInitializeGameInitElement(FModClearEventNames);
 }
 
 void InitMod(void)

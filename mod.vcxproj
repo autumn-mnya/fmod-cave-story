@@ -72,7 +72,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\core\inc;C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\studio\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -89,6 +89,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AutPI.cpp" />
     <ClCompile Include="src\fmodAudio.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="src\\mod_loader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AutPI.h" />
     <ClInclude Include="src\cave_story.h" />
     <ClInclude Include="src\fmodAudio.h" />
     <ClInclude Include="src\Game.h" />
