@@ -43,15 +43,15 @@ char eventParameter[MAX_PATH] = "null";
 void GetTextScriptString(char returnData[])
 {
 	int i = 0;
-	while (gTS->data[gTS->p_read] != '$') {
-		returnData[i] = gTS->data[gTS->p_read];
-		gTS->p_read++;
+	while (gTS.data[gTS.p_read] != '$') {
+		returnData[i] = gTS.data[gTS.p_read];
+		gTS.p_read++;
 		i++;
 	}
 	//Insert the null terminator overtop the $
 	returnData[i] = '\0';
 	//Skip over the '$'
-	gTS->p_read++;
+	gTS.p_read++;
 }
 
 static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
@@ -60,12 +60,12 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 	int w, x, y, z;
 	char event_name_tsc[MAX_PATH];
 
-	char* where = TextScriptBuffer + gTS->p_read;
+	char* where = TextScriptBuffer + gTS.p_read;
 	if (where[0] != '<')
 		return 0;
 	if (strncmp(where + 1, "PEV", 3) == 0) // Play EVent
 	{
-		gTS->p_read += 4;
+		gTS.p_read += 4;
 
 		switch (eventNameChoice)
 		{
@@ -153,12 +153,12 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 	}
 	else if (strncmp(where + 1, "CEV", 3) == 0) // Change EVent (i cant get this to work with the original <PEV event)
 	{
-		eventNameChoice = GetTextScriptNo(gTS->p_read + 4);
-		gTS->p_read += 8;
+		eventNameChoice = GetTextScriptNo(gTS.p_read + 4);
+		gTS.p_read += 8;
 	}
 	else if (strncmp(where + 1, "SEV", 3) == 0) // Stop EVent (This is jank as fuck please fix this later)
 	{
-		x = GetTextScriptNo(gTS->p_read + 4);
+		x = GetTextScriptNo(gTS.p_read + 4);
 
 		switch (x)
 		{
@@ -204,18 +204,18 @@ static int CustomTextScriptCommands(MLHookCPURegisters* regs, void* ud)
 				break;
 		}
 		
-		gTS->p_read += 8;
+		gTS.p_read += 8;
 	}
 	else if (strncmp(where + 1, "CVP", 3) == 0) // Change eVent Parameter
 	{
-		gTS->p_read += 4;
+		gTS.p_read += 4;
 		GetTextScriptString(eventParameter);
 	}
 	else if (strncmp(where + 1, "EVP", 3) == 0) // EVent Parameter
 	{
-		x = GetTextScriptNo(gTS->p_read + 4);
+		x = GetTextScriptNo(gTS.p_read + 4);
 		FmodMusicInstance->setParameterByName(eventParameter, x, false);
-		gTS->p_read += 8;
+		gTS.p_read += 8;
 	}
 	else
 		return 0;

@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;EXAMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\core\inc;C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\studio\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\fmod\inc;external\lua\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -64,14 +64,14 @@
       <TargetMachine>MachineX86</TargetMachine>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\core\lib\x86;C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\studio\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fmod_vc.lib;fmodstudio_vc.lib;Shlwapi.lib;ws2_32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\fmod\lib;external\lua\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua.lib;fmod_vc.lib;fmodstudio_vc.lib;Shlwapi.lib;ws2_32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\core\inc;C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\studio\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\fmod\inc;external\lua\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -83,8 +83,8 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\core\lib\x86;C:\Program Files %28x86%29\FMOD SoundSystem 2.02\FMOD Studio API Windows\api\studio\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fmod_vc.lib;fmodstudio_vc.lib;Shlwapi.lib;ws2_32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>external\fmod\lib;external\lua\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua.lib;fmod_vc.lib;fmodstudio_vc.lib;Shlwapi.lib;ws2_32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
@@ -92,8 +92,10 @@
     <ClCompile Include="src\AutPI.cpp" />
     <ClCompile Include="src\fmodAudio.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\lua\Lua.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\ModSettings.cpp" />
+    <ClCompile Include="src\Npc.cpp" />
     <ClCompile Include="src\Profile.cpp" />
     <ClCompile Include="src\TextScript.cpp" />
     <ClCompile Include="src\\mod_loader.cpp" />
@@ -103,8 +105,10 @@
     <ClInclude Include="src\cave_story.h" />
     <ClInclude Include="src\fmodAudio.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\lua\Lua.h" />
     <ClInclude Include="src\Main.h" />
     <ClInclude Include="src\ModSettings.h" />
+    <ClInclude Include="src\Npc.h" />
     <ClInclude Include="src\Profile.h" />
     <ClInclude Include="src\TextScript.h" />
     <ClInclude Include="src\\mod_loader.h" />

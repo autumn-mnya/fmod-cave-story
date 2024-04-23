@@ -18,7 +18,7 @@
 
 const char* gFmodFileName = "Profile.FMOD.dat";
 
-BOOL SaveFmodFile(const char* name)
+BOOL SaveFmodFile()
 {
 	FILE* fp;
 	ProfileFmodData profile;
@@ -26,10 +26,7 @@ BOOL SaveFmodFile(const char* name)
 	char path[MAX_PATH];
 
 	// Get path
-	if (name != NULL)
-		sprintf(path, "%s\\%s", gModulePath, name);
-	else
-		sprintf(path, "%s\\%s", gModulePath, gFmodFileName);
+	sprintf(path, "%s\\%s", gModulePath, gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "wb");
@@ -54,17 +51,14 @@ BOOL SaveFmodFile(const char* name)
 	return TRUE;
 }
 
-BOOL LoadFmodFile(const char* name)
+BOOL LoadFmodFile()
 {
 	FILE* fp;
 	ProfileFmodData profile;
 	char path[MAX_PATH];
 
 	// Get path
-	if (name != NULL)
-		sprintf(path, "%s", name);
-	else
-		sprintf(path, "%s\\%s", gModulePath, gFmodFileName);
+	sprintf(path, "%s\\%s", gModulePath, gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "rb");
@@ -90,11 +84,9 @@ BOOL LoadFmodFile(const char* name)
 	return TRUE;
 }
 
-// 0x424DAE
-void Replacement_TextScript_SaveProfile_Call(const char* name)
+void SaveFModCall()
 {
-	SaveProfile(name);
-	SaveFmodFile(NULL);
+	SaveFmodFile();
 }
 
 // 0x41D52B
@@ -102,7 +94,7 @@ void Replacement_LoadProfile_ClearValueView_Call()
 {
 	ClearValueView();
 
-	LoadFmodFile(NULL);
+	LoadFmodFile();
 	
 	// Play all fmod audio
 	PlayFModAudio(eventName);
@@ -113,16 +105,4 @@ void Replacement_LoadProfile_ClearValueView_Call()
 	PlayFModAudio(eventName6);
 	PlayFModAudio(eventName7);
 	PlayFModAudio(eventName8);
-}
-
-void FModClearEventNames()
-{
-	memset(eventName, 0, sizeof(eventName));
-	memset(eventName2, 0, sizeof(eventName2));
-	memset(eventName3, 0, sizeof(eventName3));
-	memset(eventName4, 0, sizeof(eventName4));
-	memset(eventName5, 0, sizeof(eventName5));
-	memset(eventName6, 0, sizeof(eventName6));
-	memset(eventName7, 0, sizeof(eventName7));
-	memset(eventName8, 0, sizeof(eventName8));
 }

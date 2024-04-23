@@ -14,9 +14,12 @@
 #include "mod_loader.h"
 #include "cave_story.h"
 #include "fmodAudio.h"
+#include "Npc.h"
 #include "Game.h"
 #include "Profile.h"
 #include "TextScript.h"
+
+bool replace_npc_code = false;
 
 void InitMod_Settings()
 {
@@ -29,4 +32,6 @@ void InitMod_Settings()
 	setting_titlescreen_safety_music = ModLoader_GetSettingString("Title Screen Music [Safety] (FMOD)", gNull1Name);
 
 	gFmodFileName = ModLoader_GetSettingString("FMOD Save File Name", "Profile.FMOD.dat");
+
+	replace_npc_code = ModLoader_GetSettingBool("Replace Fan Npc Code for Parameters", false);
 }

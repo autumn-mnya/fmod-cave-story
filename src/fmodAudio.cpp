@@ -19,6 +19,8 @@
 #include "cave_story.h"
 #include "TextScript.h"
 
+#include "Npc.h"
+
 namespace fs = std::filesystem;
 
 const char* gBankName = "Master.bank";
@@ -234,4 +236,131 @@ void StopFmodAllAudio()
     PlayFModAudio(gNull6Name);
     PlayFModAudio(gNull7Name);
     PlayFModAudio(gNull8Name);
+    PlayFModAudio(gNull1Name);
+    PlayFModAudio(gNull2Name);
+    PlayFModAudio(gNull3Name);
+    PlayFModAudio(gNull4Name);
+    PlayFModAudio(gNull5Name);
+    PlayFModAudio(gNull6Name);
+    PlayFModAudio(gNull7Name);
+    PlayFModAudio(gNull8Name);
+    strcpy(eventName, gNull1Name);
+    strcpy(eventName2, gNull2Name);
+    strcpy(eventName3, gNull3Name);
+    strcpy(eventName4, gNull4Name);
+    strcpy(eventName5, gNull5Name);
+    strcpy(eventName6, gNull6Name);
+    strcpy(eventName7, gNull7Name);
+    strcpy(eventName8, gNull8Name);
+}
+
+void FModClearEventNames()
+{
+    memset(eventName, 0, sizeof(eventName));
+    memset(eventName2, 0, sizeof(eventName2));
+    memset(eventName3, 0, sizeof(eventName3));
+    memset(eventName4, 0, sizeof(eventName4));
+    memset(eventName5, 0, sizeof(eventName5));
+    memset(eventName6, 0, sizeof(eventName6));
+    memset(eventName7, 0, sizeof(eventName7));
+    memset(eventName8, 0, sizeof(eventName8));
+}
+
+void fmodParameter_isAirborne()
+{
+    if (gMC.ym != 0)
+        FmodMusicInstance->setParameterByName("isAirborne", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("isInWater", 0, false);
+}
+
+void fmodParameter_isAtHighXSpeed()
+{
+    if (abs(gMC.xm) > 950)
+        FmodMusicInstance->setParameterByName("isAtHighXSpeed", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("isAtHighXSpeed", 0, false);
+}
+
+void fmodParameter_isAtHighYSpeed()
+{
+    if (abs(gMC.ym) > 1300)
+        FmodMusicInstance->setParameterByName("isAtHighYSpeed", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("isAtHighYSpeed", 0, false);
+}
+
+void fmodParameter_isAtHighSpeed()
+{
+    if ((abs(gMC.ym) > 1300) || (abs(gMC.xm) > 950))
+        FmodMusicInstance->setParameterByName("isAtHighSpeed", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("isAtHighSpeed", 0, false);
+}
+
+void fmodParameter_isInWind()
+{
+    if ((gMC.flag & 0x1000) || (gMC.flag & 0x2000) || (gMC.flag & 0x4000) || (gMC.flag & 0x8000) || playerIsInFan == true)
+        FmodMusicInstance->setParameterByName("isInWind", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("isInWind", 0, false);
+}
+
+void fmodParameter_playerAtLowHP()
+{
+    double threshold = 0.3 * gMC.max_life;
+
+    if (gMC.life <= threshold)
+        FmodMusicInstance->setParameterByName("playerAtLowHP", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("playerAtLowHP", 0, false);
+}
+
+void fmodParameter_isInWater()
+{
+    if (gMC.flag & 0x100)
+        FmodMusicInstance->setParameterByName("isInWater", 1, false);
+    else
+        FmodMusicInstance->setParameterByName("isInWater", 0, false);
+}
+
+void InjectMusicProgressParams()
+{
+    // If the player is airborne currently
+    fmodParameter_isAirborne();
+
+    // If the player is moving at high speed horizontally
+    fmodParameter_isAtHighXSpeed();
+
+    // If the player is moving at high speed vertically
+    fmodParameter_isAtHighYSpeed();
+
+    // If the player is moving at high speed in either direction
+    fmodParameter_isAtHighSpeed();
+
+    // If the player is in a wind tile
+    fmodParameter_isInWind();
+
+    // players current weapon --> the parameter should be from 0 to 99 or something
+    FmodMusicInstance->setParameterByName("playerArmsNum", gArmsData[gSelectedArms].code, false);
+
+    // players current weapon level
+    FmodMusicInstance->setParameterByName("playerArmsLevel", gArmsData[gSelectedArms].level, false);
+
+    // Calculate 30% of max_life
+    fmodParameter_playerAtLowHP();
+
+    // If the player is in Water
+    fmodParameter_isInWater();
+}
+
+void FModUpdate()
+{
+    FmodStudioObj->update();
+    InjectMusicProgressParams();
+}
+
+void ReleaseFModAudio()
+{
+    ReleaseFmod();
 }

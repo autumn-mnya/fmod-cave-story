@@ -18,6 +18,5 @@ typedef struct ProfileFmodData
 	char eventName8[MAX_PATH];
 } ProfileFmodData;
 
-void Replacement_TextScript_SaveProfile_Call(const char* name);
+void SaveFModCall();
 void Replacement_LoadProfile_ClearValueView_Call();
-void FModClearEventNames();

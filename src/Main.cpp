@@ -15,11 +15,13 @@
 #include "mod_loader.h"
 #include "cave_story.h"
 #include "fmodAudio.h"
+#include "Npc.h"
 #include "Game.h"
 #include "Profile.h"
 #include "TextScript.h"
 
 #include "AutPI.h"
+#include "lua/Lua.h"
 
 // Paths
 char gModulePath[MAX_PATH];
@@ -60,15 +62,6 @@ void Replacement_ActiveWindow_StopOrganya_Call()
 }
 */
 
-void FModUpdate()
-{
-	FmodStudioObj->update();
-}
-void ReleaseFModAudio()
-{
-	ReleaseFmod();
-}
-
 void InitMod_ReplacementChangeMusic()
 {
 	ModLoader_WriteCall((void*)0x40F756, (void*)Replacement_ModeOpening_ChangeMusic_Silence_Call);
@@ -92,23 +85,37 @@ void InitReplacements()
 	*/
 
 	InitMod_ReplacementChangeMusic();
+	RegisterInitializeGameInitElement(FModClearEventNames);
 	// Game
 	RegisterOpeningActionElement(FModUpdate);
 	RegisterTitleActionElement(FModUpdate);
 	RegisterActionElement(FModUpdate);
 	RegisterReleaseElement(ReleaseFModAudio);
+
+	if (replace_npc_code)
+	{
+		ModLoader_WriteJump((void*)0x43AAF0, (void*)Replacement_ActNpc096);
+		ModLoader_WriteJump((void*)0x43AD10, (void*)Replacement_ActNpc097);
+		ModLoader_WriteJump((void*)0x43AF20, (void*)Replacement_ActNpc098);
+		ModLoader_WriteJump((void*)0x43B140, (void*)Replacement_ActNpc099);
+	}
+
 	// Profile
-	ModLoader_WriteCall((void*)0x424DAE, (void*)Replacement_TextScript_SaveProfile_Call);
 	ModLoader_WriteCall((void*)0x41D52B, (void*)Replacement_LoadProfile_ClearValueView_Call);
-	RegisterInitializeGameInitElement(FModClearEventNames);
 }
 
 void InitMod(void)
 {
+	LoadAutPiDll();
 	InitMod_Settings();
 	GetGamePath();
 	fmod_Init();
 	fmod_LoadBanks();
 	InitReplacements();
 	InitMod_TSC();
+
+	RegisterSVPElement(SaveFModCall);
+
+	RegisterLuaPreGlobalModCSElement(SetFMODGlobalString);
+	RegisterLuaFuncElement(SetFMODLua);
 }
