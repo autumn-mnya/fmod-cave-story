@@ -87,9 +87,7 @@ void InitReplacements()
 	InitMod_ReplacementChangeMusic();
 	RegisterInitializeGameInitElement(FModClearEventNames);
 	// Game
-	RegisterOpeningActionElement(FModUpdate);
-	RegisterTitleActionElement(FModUpdate);
-	RegisterActionElement(FModUpdate);
+	RegisterGetTrgElement(FModUpdate);
 	RegisterReleaseElement(ReleaseFModAudio);
 
 	if (replace_npc_code)
