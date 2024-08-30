@@ -46,22 +46,6 @@ void GetGamePath()
 	strcat(gAudioPath, audioDirectory);
 }
 
-/*
-void Replacement_InactiveWindow_StopOrganya_Call()
-{
-	FmodMusicInstance->setPaused(true);
-	StopOrganyaMusic();
-	printf("try to pause the music lol\n");
-}
-
-void Replacement_ActiveWindow_StopOrganya_Call()
-{
-	StopOrganyaMusic();
-	printf("try to play the music lol\n");
-	FmodMusicInstance->setPaused(false);
-}
-*/
-
 void InitMod_ReplacementChangeMusic()
 {
 	ModLoader_WriteCall((void*)0x40F756, (void*)Replacement_ModeOpening_ChangeMusic_Silence_Call);
@@ -75,14 +59,10 @@ void InitMod_ReplacementChangeMusic()
 
 void InitReplacements()
 {
-	// Main
-	// Disable Inactive/Active stuff - lazy solution to not being able to pause audio
-	ModLoader_WriteCall((void*)0x413316, (void*)ActiveWindow);
-
-	/*
-	ModLoader_WriteCall((void*)0x412BD6, (void*)Replacement_InactiveWindow_StopOrganya_Call);
-	ModLoader_WriteCall((void*)0x412C06, (void*)Replacement_ActiveWindow_StopOrganya_Call);
-	*/
+	// Dont pause the window
+	ModLoader_WriteByte((void*)0x413593, 0x71);
+	ModLoader_WriteByte((void*)0x412BC0, 0xC3);
+	ModLoader_WriteByte((void*)0x412BF0, 0xC3);
 
 	InitMod_ReplacementChangeMusic();
 	RegisterInitializeGameInitElement(FModClearEventNames);

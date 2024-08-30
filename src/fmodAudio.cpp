@@ -18,6 +18,7 @@
 #include "mod_loader.h"
 #include "cave_story.h"
 #include "TextScript.h"
+#include "fmodAudio.h"
 
 #include "Npc.h"
 

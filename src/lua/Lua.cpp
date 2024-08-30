@@ -23,6 +23,8 @@ extern "C"
 
 #include "../fmodAudio.h"
 
+#define gL GetLuaL()
+
 static int lua_PlayFModEvent(lua_State* L)
 {
 	const char* eventName = luaL_checkstring(L, 1);

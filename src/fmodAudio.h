@@ -24,9 +24,10 @@ extern FMOD::System* coreSystem;
 void fmod_Init();
 void fmod_LoadBanks();
 void ReleaseFmod();
-void PlayFModAudio(const char* audiofile);
-void StopFmodAllAudio();
-void FModClearEventNames();
 void InjectMusicProgressParams();
-void FModUpdate();
 void ReleaseFModAudio();
+
+extern "C" __declspec(dllexport) void PlayFModAudio(const char* audiofile);
+extern "C" __declspec(dllexport) void StopFmodAllAudio();
+extern "C" __declspec(dllexport) void FModClearEventNames();
+extern "C" __declspec(dllexport) void FModUpdate();
