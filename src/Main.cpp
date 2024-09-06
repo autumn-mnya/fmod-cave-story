@@ -24,27 +24,10 @@
 #include "lua/Lua.h"
 
 // Paths
-char gModulePath[MAX_PATH];
-char gDataPath[MAX_PATH];
+char gSavePath[MAX_PATH];
 char gAudioPath[MAX_PATH];
 
 const char* audioDirectory = "data\\audio\\Desktop";
-
-void GetGamePath()
-{
-	// Get executable's path
-	GetModuleFileNameA(NULL, gModulePath, MAX_PATH);
-	PathRemoveFileSpecA(gModulePath);
-
-	// Get path of the data folder
-	strcpy(gDataPath, gModulePath);
-	strcat(gDataPath, "\\data");
-
-	// Get path of the audio folder
-	strcpy(gAudioPath, gModulePath);
-	strcat(gAudioPath, "\\");
-	strcat(gAudioPath, audioDirectory);
-}
 
 void InitMod_ReplacementChangeMusic()
 {
@@ -82,18 +65,31 @@ void InitReplacements()
 	ModLoader_WriteCall((void*)0x41D52B, (void*)Replacement_LoadProfile_ClearValueView_Call);
 }
 
-void InitMod(void)
+
+void InitModPreMode()
 {
-	LoadAutPiDll();
-	InitMod_Settings();
-	GetGamePath();
+	// Get path of the audio folder
+	strcpy(gAudioPath, exeModulePath);
+	strcat(gAudioPath, "\\");
+	strcat(gAudioPath, audioDirectory);
+
+	printf("%s\n", gAudioPath);
+
+	strcpy(gSavePath, exeModulePath);
+	strcat(gSavePath, "\\savedata");
+
 	fmod_Init();
 	fmod_LoadBanks();
 	InitReplacements();
 	InitMod_TSC();
+}
 
+void InitMod(void)
+{
+	LoadAutPiDll();
+	InitMod_Settings();
+	RegisterPreModeElement(InitModPreMode);
 	RegisterSVPElement(SaveFModCall);
-
 	RegisterLuaPreGlobalModCSElement(SetFMODGlobalString);
 	RegisterLuaFuncElement(SetFMODLua);
 }

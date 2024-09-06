@@ -6,6 +6,5 @@
 
 extern const char* audioDirectory;
 
-extern char gModulePath[MAX_PATH];
-extern char gDataPath[MAX_PATH];
+extern char gSavePath[MAX_PATH];
 extern char gAudioPath[MAX_PATH];

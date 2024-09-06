@@ -26,7 +26,7 @@ BOOL SaveFmodFile()
 	char path[MAX_PATH];
 
 	// Get path
-	sprintf(path, "%s\\%s", gModulePath, gFmodFileName);
+	sprintf(path, "%s\\%s", gSavePath, gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "wb");
@@ -58,7 +58,7 @@ BOOL LoadFmodFile()
 	char path[MAX_PATH];
 
 	// Get path
-	sprintf(path, "%s\\%s", gModulePath, gFmodFileName);
+	sprintf(path, "%s\\%s", gSavePath, gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "rb");

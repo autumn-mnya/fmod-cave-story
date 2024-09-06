@@ -7,8 +7,8 @@
 mod.vcxproj.user
 *.exp
 *.pdb
-*.dll
 
+!CaveStory/dsound.dll
 CaveStory/fps
 CaveStory/mute
 CaveStory/Config.dat
