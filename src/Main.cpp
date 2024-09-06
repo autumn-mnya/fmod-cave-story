@@ -62,7 +62,7 @@ void InitReplacements()
 	}
 
 	// Profile
-	ModLoader_WriteCall((void*)0x41D52B, (void*)Replacement_LoadProfile_ClearValueView_Call);
+	RegisterLoadProfileInitElement(FmodLoadProfileInit);
 }
 
 
@@ -89,7 +89,7 @@ void InitMod(void)
 	LoadAutPiDll();
 	InitMod_Settings();
 	RegisterPreModeElement(InitModPreMode);
-	RegisterSVPElement(SaveFModCall);
+	RegisterSaveProfilePostCloseElement(SaveFmodFile);
 	RegisterLuaPreGlobalModCSElement(SetFMODGlobalString);
 	RegisterLuaFuncElement(SetFMODLua);
 }

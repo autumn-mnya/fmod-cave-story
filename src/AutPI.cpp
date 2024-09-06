@@ -83,10 +83,6 @@ void LoadAutPiDll()
     }
 }
 
-std::vector<LuaPreGlobalModCSElementHandler> preglobalmodcsElementHandlers;
-std::vector<LuaMetadataElementHandler> luametadataElementHandlers;
-std::vector<LuaFuncElementHandler> luafuncElementHandlers;
-
 DEFINE_REGISTER_FUNCTION(PreModeElementHandler, PreModeElement)
 DEFINE_REGISTER_FUNCTION(ReleaseElementHandler, ReleaseElement)
 DEFINE_REGISTER_FUNCTION(GetTrgElementHandler, GetTrgElement)
@@ -138,6 +134,7 @@ DEFINE_REGISTER_FUNCTION(SaveProfilePreCloseElementHandler, SaveProfilePreCloseE
 DEFINE_REGISTER_FUNCTION(SaveProfilePostCloseElementHandler, SaveProfilePostCloseElement)
 DEFINE_REGISTER_FUNCTION(LoadProfilePreCloseElementHandler, LoadProfilePreCloseElement)
 DEFINE_REGISTER_FUNCTION(LoadProfilePostCloseElementHandler, LoadProfilePostCloseElement)
+DEFINE_REGISTER_FUNCTION(LoadProfileInitElementHandler, LoadProfileInitElement)
 DEFINE_REGISTER_FUNCTION(InitializeGameInitElementHandler, InitializeGameInitElement)
 DEFINE_REGISTER_FUNCTION(PutFPSElementHandler, PutFPSElement)
 DEFINE_REGISTER_FUNCTION(TextScriptSVPElementHandler, SVPElement)
@@ -253,4 +250,64 @@ BOOL LoadStageTable(char* name)
     }
 
     return func(name);
+}
+
+BOOL ReloadModScript()
+{
+    typedef BOOL(*funcdef)();
+
+    funcdef func = reinterpret_cast<funcdef>(
+        GetProcAddress(autpiDLL, "ReloadModScript"));
+
+    if (func == nullptr) {
+        std::cerr << "Failed to get the function pointer for ReloadModScript\n";
+        return FALSE;
+    }
+
+    return func();
+}
+
+unsigned char ModLoader_GetByte(void* address)
+{
+    typedef unsigned char (*funcdef)(void* address);
+
+    funcdef func = reinterpret_cast<funcdef>(
+        GetProcAddress(autpiDLL, "ModLoader_GetByte"));
+
+    if (func == nullptr) {
+        std::cerr << "Failed to get the function pointer for ModLoader_GetByte\n";
+        return FALSE;
+    }
+
+    return func(address);
+}
+
+unsigned short ModLoader_GetWord(void* address)
+{
+    typedef unsigned short (*funcdef)(void* address);
+
+    funcdef func = reinterpret_cast<funcdef>(
+        GetProcAddress(autpiDLL, "ModLoader_GetWord"));
+
+    if (func == nullptr) {
+        std::cerr << "Failed to get the function pointer for ModLoader_GetWord\n";
+        return FALSE;
+    }
+
+    return func(address);
+}
+
+unsigned long ModLoader_GetLong(void* address)
+{
+    typedef unsigned long (*funcdef)(void* address);
+
+    funcdef func = reinterpret_cast<funcdef>(
+        GetProcAddress(autpiDLL, "ModLoader_GetLong"));
+
+    if (func == nullptr) {
+        std::cerr << "Failed to get the function pointer for ModLoader_GetLong\n";
+        return FALSE;
+    }
+
+    return func(address);
 }

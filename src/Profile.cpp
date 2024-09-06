@@ -18,7 +18,7 @@
 
 const char* gFmodFileName = "Profile.FMOD.dat";
 
-BOOL SaveFmodFile()
+void SaveFmodFile()
 {
 	FILE* fp;
 	ProfileFmodData profile;
@@ -31,7 +31,7 @@ BOOL SaveFmodFile()
 	// Open file
 	fp = fopen(path, "wb");
 	if (fp == NULL)
-		return FALSE;
+		return;
 
 	memset(&profile, 0, sizeof(ProfileFmodData));
 	memcpy(profile.eventName, eventName, sizeof(profile.eventName));
@@ -48,10 +48,10 @@ BOOL SaveFmodFile()
 
 	fclose(fp);
 
-	return TRUE;
+	return;
 }
 
-BOOL LoadFmodFile()
+void LoadFmodFile()
 {
 	FILE* fp;
 	ProfileFmodData profile;
@@ -63,7 +63,7 @@ BOOL LoadFmodFile()
 	// Open file
 	fp = fopen(path, "rb");
 	if (fp == NULL)
-		return TRUE; // don't return false, but quit out early anyways
+		return; // don't return false, but quit out early anyways
 
 	// Read data
 	fseek(fp, 0, SEEK_SET);
@@ -81,19 +81,11 @@ BOOL LoadFmodFile()
 	memcpy(eventName7, profile.eventName7, sizeof(eventName7));
 	memcpy(eventName8, profile.eventName8, sizeof(eventName8));
 
-	return TRUE;
+	return;
 }
 
-void SaveFModCall()
+void FmodLoadProfileInit()
 {
-	SaveFmodFile();
-}
-
-// 0x41D52B
-void Replacement_LoadProfile_ClearValueView_Call()
-{
-	ClearValueView();
-
 	LoadFmodFile();
 	
 	// Play all fmod audio
