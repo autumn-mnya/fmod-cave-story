@@ -4,8 +4,6 @@
 
 #include "cave_story.h"
 
-extern const char* gFmodFileName;
-
 typedef struct ProfileFmodData
 {
 	char eventName[MAX_PATH];

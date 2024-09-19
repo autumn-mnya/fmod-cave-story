@@ -10,13 +10,14 @@
 
 #include "main.h"
 
+#include "AutPI.h"
 #include "mod_loader.h"
 #include "mod_loader_hooks.h"
 #include "cave_story.h"
 #include "fmodAudio.h"
 #include "TextScript.h"
 
-const char* gFmodFileName = "Profile.FMOD.dat";
+const char* gFmodFileName = "FMOD";
 
 void SaveFmodFile()
 {
@@ -26,7 +27,7 @@ void SaveFmodFile()
 	char path[MAX_PATH];
 
 	// Get path
-	sprintf(path, "%s\\%s", gSavePath, gFmodFileName);
+	sprintf(path, "%s\\%s.%s", gSavePath, GetCustomSaveName(), gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "wb");
@@ -58,7 +59,7 @@ void LoadFmodFile()
 	char path[MAX_PATH];
 
 	// Get path
-	sprintf(path, "%s\\%s", gSavePath, gFmodFileName);
+	sprintf(path, "%s\\%s.%s", gSavePath, GetCustomSaveName(), gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "rb");

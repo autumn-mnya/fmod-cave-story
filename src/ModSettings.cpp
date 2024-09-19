@@ -31,7 +31,5 @@ void InitMod_Settings()
 	setting_titlescreen_white_music = ModLoader_GetSettingString("Title Screen Music [White] (FMOD)", gNull1Name);
 	setting_titlescreen_safety_music = ModLoader_GetSettingString("Title Screen Music [Safety] (FMOD)", gNull1Name);
 
-	gFmodFileName = ModLoader_GetSettingString("FMOD Save File Name", "Profile.FMOD.dat");
-
 	replace_npc_code = ModLoader_GetSettingBool("Replace Fan Npc Code for Parameters", false);
 }
