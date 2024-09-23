@@ -27,7 +27,9 @@ void SaveFmodFile()
 	char path[MAX_PATH];
 
 	// Get path
-	sprintf(path, "%s\\%s.%s", gSavePath, GetCustomSaveName(), gFmodFileName);
+	std::string sp = GetCustomSaveName();
+	std::size_t id = sp.find_last_of("/\\");
+	sprintf(path, "%s\\savedata\\%s.%s", sp.substr(0, id).c_str(), sp.substr(id + 1).c_str(), gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "wb");
@@ -59,7 +61,9 @@ void LoadFmodFile()
 	char path[MAX_PATH];
 
 	// Get path
-	sprintf(path, "%s\\%s.%s", gSavePath, GetCustomSaveName(), gFmodFileName);
+	std::string sp = GetCustomSaveName();
+	std::size_t id = sp.find_last_of("/\\");
+	sprintf(path, "%s\\savedata\\%s.%s", sp.substr(0, id).c_str(), sp.substr(id + 1).c_str(), gFmodFileName);
 
 	// Open file
 	fp = fopen(path, "rb");
