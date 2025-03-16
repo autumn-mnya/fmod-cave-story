@@ -3,8 +3,11 @@ This is a code mod that adds FMOD Audio into Cave Story freeware! It can be comp
 
 # Licensing
 When making credits for your mod, you should also credit the fmod studio team for fmod audio. Examples here:
+
 `Made using FMOD Studio by Firelight Technologies Pty Ltd.`
+
 `Audio Engine: FMOD Studio by Firelight Technologies Pty Ltd.`
+
 There is an FMOD Studio logo that appears on boot of your mod. Do not remove it. You can possibly edit it, but it has to still be a legible logo.
 
 # Compiling
