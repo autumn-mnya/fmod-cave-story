@@ -1,6 +1,13 @@
 # Cave Story Mod Loader ~ FMOD Audio Dll
 This is a code mod that adds FMOD Audio into Cave Story freeware! It can be compiled using Visual Studio 2022 for making dll mods for Cave Story freeware, using [Clownacy's Mod Loader](https://github.com/Clownacy/Cave-Story-Mod-Loader/releases).
 
+# Licensing
+When making credits for your mod, you should also credit the fmod studio team for fmod audio. Examples here:
+`Made using FMOD Studio by Firelight Technologies Pty Ltd.`
+`Audio Engine: FMOD Studio by Firelight Technologies Pty Ltd.`
+There is an FMOD Studio logo that appears on boot of your mod. Do not remove it. You can possibly edit it, but it has to still be a legible logo.
+
+# Compiling
 You'll first need a copy of [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/). When you're installing it, go to the individual components tab and select the "C++ Windows XP Support for VS 2017 (v141) tools [Deprecated]".
 
 ![v141 tools](WindowsXPSupport.png)
