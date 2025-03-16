@@ -8,3 +8,5 @@ extern const char* audioDirectory;
 
 extern char gSavePath[MAX_PATH];
 extern char gAudioPath[MAX_PATH];
+
+void ReleaseFModBeforeGame();

@@ -23,11 +23,27 @@
 #include "AutPI.h"
 #include "lua/Lua.h"
 
+bool fmodlogo_ready = false;
+bool fmodlogo_done = false;
+int tilesetsizeX = 256;
+int tilesetsizeY = 256;
+int tilesetSurface = 2;
+
 // Paths
 char gSavePath[MAX_PATH];
 char gAudioPath[MAX_PATH];
 
 const char* audioDirectory = "data\\audio\\Desktop";
+
+void ReleaseFModBeforeGame()
+{
+	if (fmodlogo_done == false)
+	{
+		ReleaseSurface(tilesetSurface);
+		MakeSurface_Generic(tilesetsizeX, tilesetsizeY, tilesetSurface, FALSE);
+		fmodlogo_done = true;
+	}
+}
 
 void InitMod_ReplacementChangeMusic()
 {
@@ -65,6 +81,30 @@ void InitReplacements()
 	RegisterLoadProfileInitElement(FmodLoadProfileInit);
 }
 
+// 0x411588
+void LoadTilesetForFModLogo(int a, int b, int c, bool d)
+{
+	ReleaseSurface(c);
+	MakeSurface_Generic(a, b, c, d);
+	ReleaseSurface(c);
+	tilesetsizeX = a;
+	tilesetsizeY = b;
+	tilesetSurface = c;
+	MakeSurface_File("fmod-logo", tilesetSurface);
+	fmodlogo_ready = true;
+}
+
+// 0x412AD2
+void PutFModLogoWhenPossible(const RECT* a, int b, int c, const RECT* d, int e)
+{
+	MakeSurface_File("fmod-logo", tilesetSurface);
+	fmodlogo_ready = true;
+
+	RECT rcFmodLogo = { 0, 0, 132, 35 };
+	PutBitmap3(a, b, c, d, e);
+	if (fmodlogo_ready == true)
+		PutBitmap3(a, (WINDOW_WIDTH / 2) - 66, (WINDOW_HEIGHT / 2) + 35, &rcFmodLogo, tilesetSurface);
+}
 
 void InitModPreMode()
 {
@@ -88,7 +128,12 @@ void InitMod(void)
 {
 	LoadAutPiDll();
 	InitMod_Settings();
+	ModLoader_WriteCall((void*)0x412AD2, (void*)PutFModLogoWhenPossible);
+	ModLoader_WriteCall((void*)0x411588, (void*)LoadTilesetForFModLogo);
 	RegisterPreModeElement(InitModPreMode);
+	RegisterInitElement(ReleaseFModBeforeGame);
+	RegisterOpeningInitElement(ReleaseFModBeforeGame);
+	RegisterTitleInitElement(ReleaseFModBeforeGame);
 	RegisterSaveProfilePostCloseElement(SaveFmodFile);
 	RegisterLuaPreGlobalModCSElement(SetFMODGlobalString);
 	RegisterLuaFuncElement(SetFMODLua);
